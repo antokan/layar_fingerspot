@@ -1,0 +1,22 @@
+{
+	"name": "antokan/layar_fingerspot",
+    "description": "Layar Informasi untuk Fingerspot Database",
+    "license": "BSD-3-Clause",
+    "type": "project",
+    "keywords": ["slim-framework", "fingerspot","layar","informasi","eloquent","console","cli-tool","migration","scaffold"],
+    "authors": [
+        {
+            "name": "Antokan",
+            "email": "mail@antokan.com",
+            "homepage": "https://antokan.github.io"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    }
+}
