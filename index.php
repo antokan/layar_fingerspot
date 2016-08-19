@@ -1,22 +1,28 @@
 <?php
 
-require 'vendor/autoload.php';
-// Create and configure Slim app
-$config = ['settings' => [
-    'addContentLengthHeader' => false,
-]];
+if (PHP_SAPI == 'cli-server') {
+    // To help the built-in PHP dev server, check if the request was actually for
+    // something which should probably be served as a static file
+    $file = __DIR__ . $_SERVER['REQUEST_URI'];
+    if (is_file($file)) {
+        return false;
+    }
+}
 
-$app = new \Slim\App($config);
+require __DIR__ . '/vendor/autoload.php';
 
-// Define app routes
-$app->get('/hello/{name}', function ($request, $response, $args) {
-    return $response->write("Hello " . $args['name']);
-});
+session_start();
 
-$app->get('/', function ($request, $response) {
-    return $response->write("Welcome to Lala Land");
-});
+// Instantiate the app
+$settings = require __DIR__ . '/app/settings.php';
 
+$app = new \Slim\App($settings);
 
-// Run app
+// Set up dependencies
+require __DIR__ . '/app/dependencies.php';
+
+// Register routes
+require __DIR__ . '/app/routes.php';
+
+// Run!
 $app->run();
